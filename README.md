@@ -2,31 +2,6 @@ ASECTDS
 
 Autonomous Self-Evolving Cloud Threat Defense System
 
-<p align="center">
-  <img src="screenshots/dashboard.png" alt="Grafana Dashboard" width="800"/>
-</p>
-<p align="center">
-  <img src="https://img.shields.io/badge/AWS-Lambda-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
-  <img src="https://img.shields.io/badge/PyTorch-LSTM-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Grafana-Live-F46800?style=for-the-badge&logo=grafana&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Deployed-AWS%20SAM-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"/>
-</p>
-<p align="center">
-  A unified, serverless cloud security platform detecting phishing emails, phishing URLs,
-  and AWS cloud anomalies in real time — with autonomous response, LSTM-based learning,
-  and live Grafana monitoring.
-</p>
-<p align="center">
-  <b>PSG College of Technology</b> · Department of Information Technology · 2023–2027<br/>
-  Client: <b>GREEN ECM</b> · Guide: <b>Dr. Hema Priya</b>
-</p>
-
-Team
-
-NameRoll NoContributionSamitha T23I257Backend Lambda functions, cloud anomaly detection, AWS infrastructureA Gesfetha23I201Email detection, auto-response engineJananipriya N23I223Chrome extension, Grafana dashboardTheebaa sri M24I437Deepfake detection module, feature extraction
-
-
 Why "Self-Evolving"?
 
 Traditional security systems only detect threats they already know. ASECTDS is different.
@@ -258,26 +233,7 @@ Test:
 bashcurl -X POST https://duoyij8ld5.execute-api.eu-north-1.amazonaws.com/Prod/detect -H "Content-Type: application/json" -d "{\"url\": \"http://fake-paypal.login\"}"
 
 
-Screenshots
 
-<p align="center">
-  <img src="screenshots/dashboard.png" alt="Grafana Dashboard" width="700"/>
-  <br/><i>Live Grafana dashboard — URL checks with CRITICAL / HIGH / SAFE severity breakdown</i>
-</p>
-<p align="center">
-  <img src="screenshots/email_test.png" alt="Email Detection" width="700"/>
-  <br/><i>CloudWatch logs — phishing email detected, risk 100, quarantined in 118ms</i>
-</p>
-<p align="center">
-  <img src="screenshots/dynamodb.png" alt="DynamoDB" width="700"/>
-  <br/><i>DynamoDB — 186 cloud anomalies + 4 quarantined emails</i>
-</p>
-<p align="center">
-  <img src="screenshots/chrome_extension.png" alt="Chrome Extension" width="400"/>
-  <br/><i>Chrome extension blocking a phishing URL in real time</i>
-</p>
-
-Known Limitations
 
 
 LSTM not in Lambda — PyTorch (~120MB) exceeds Lambda's 250MB limit. Future: Lambda Layers or SageMaker
