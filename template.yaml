@@ -1,0 +1,52 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: ASECTDS - Autonomous Security System
+
+Globals:
+  Function:
+    Timeout: 60
+    MemorySize: 512
+    Runtime: python3.12
+
+Resources:
+
+  # Email phishing detection function
+  ThreatDetectionFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: src.phishing_handler.lambda_handler
+      Layers:
+        - arn:aws:lambda:eu-north-1:763104351884:layer:pytorch-v2-2-2:1
+      Environment:
+        Variables:
+          MODEL_PATH: models/phishing_url_latest.pt
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /detect
+            Method: post
+
+  # Cloud anomaly detection function - runs every 15 minutes
+  CloudAnomalyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: src.cloud_handler.lambda_handler
+      Environment:
+        Variables:
+          MODEL_PATH: models/phishing_url_latest.pt
+      Events:
+        ScheduledScan:
+          Type: Schedule
+          Properties:
+            Schedule: rate(15 minutes)
+            Name: asectds-cloud-scan
+            Description: Scan CloudTrail every 15 minutes for anomalies
+            Enabled: true
+
+Outputs:
+  ApiEndpoint:
+    Description: API Gateway endpoint
+    Value: !Sub https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/detect
